@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.alosatriani.mascotasapp.MascotasFavoritas">
+    tools:context=".MascotasFavoritas">
 
     <include android:id="@+id/actionBar"
         layout="@layout/barra_inicial">

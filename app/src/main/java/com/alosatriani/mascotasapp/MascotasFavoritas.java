@@ -1,32 +1,28 @@
 package com.alosatriani.mascotasapp;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.alosatriani.mascotasapp.adaptador.MascotasAdapter;
 import com.alosatriani.mascotasapp.db.ConstructorMascotas;
-import com.alosatriani.mascotasapp.fragment.IRecyclerViewFragmentView;
 import com.alosatriani.mascotasapp.presentador.IRecyclerViewFragmentPresenter;
-import com.alosatriani.mascotasapp.presentador.RecyclerViewFragmentPresenter;
+import com.alosatriani.mascotasapp.presentador.IRecyclerViewMascotasFavoritasPresenter;
 import com.alosatriani.mascotasapp.vo.MascotasVO;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
-public class MascotasFavoritas extends AppCompatActivity {
+public class MascotasFavoritas extends AppCompatActivity implements IRecyclerViewMascotasFavoritas {
 
     ArrayList<MascotasVO> mascotas;
     ArrayList<MascotasVO> mascotasFavoritas;
     private RecyclerView rvListaMascotasFavoritas;
-    private IRecyclerViewFragmentPresenter presenter;
+    private IRecyclerViewMascotasFavoritasPresenter presenter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,11 +61,17 @@ public class MascotasFavoritas extends AppCompatActivity {
         rvListaMascotasFavoritas.setLayoutManager(llm);
     }
 
-    public void inicializarAdaptadorRV() {
+
+    public MascotasAdapter crearAdaptador() {
 
         ConstructorMascotas constructorMascotas = new ConstructorMascotas(this.getBaseContext());
-        MascotasAdapter mascotasAdapter = new MascotasAdapter(constructorMascotas.obtenerMascotasFavoritas(), this);
-        rvListaMascotasFavoritas.setAdapter(mascotasAdapter);
+        return new MascotasAdapter(constructorMascotas.obtenerMascotasFavoritas(), this);
+    }
+
+
+
+    public void inicializarAdaptadorRV() {
+        rvListaMascotasFavoritas.setAdapter(crearAdaptador());
     }
 
 }
